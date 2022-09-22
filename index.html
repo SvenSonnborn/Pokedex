@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sven Pokedex</title>
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./pokemontype.css">
+    <link rel="stylesheet" href="./mediaQuery.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./img/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./img/favicon-32x32.png">
+    <link rel="manifest" href="./site.webmanifest">
+    <script src="./script.js"></script>
+    <script src="./pokemonDetails.js"></script>
+    <script src="./template.js"></script>
+    <script src="./pokemonName.js"></script>
+    <script src="./loadAPIs.js"></script>
+
+</head>
+
+<body onload="init()" class="dex-bg">
+    <header>
+        <a href="index.html"><img src="img/1b138f86caa4d7ec4482849517abcfb6.png" class="header-img"></a>
+        <form>
+            <input list="list" name="Pokemon" id="search" onkeyup="filterPokemon()" placeholder="Name oder ID ..." class="pokemon-font search-input">
+            <datalist id="list" onclick="searchPokemon()">
+            </datalist>
+            <input id="searchbtn" type="button" onclick="searchPokemon()" value="Suchen" class="pokemon-font">
+        </form>
+    </header>
+    <div id="pokedexList" class="container">
+        <navbar>
+            <div onclick="loadGen(12, 'Erste Generation')" class="pokemon-solid-font">
+                <h4>Generation 1</h4>
+            </div>
+            <div onclick="loadGen(163, 'Zweite Generation')" class="pokemon-solid-font">
+                <h4>Generation 2</h4>
+            </div>
+            <div onclick="loadGen(263, 'Dritte Generation')" class="pokemon-solid-font">
+                <h4>Generation 3</h4>
+            </div>
+            <div onclick="loadGen(398, 'Vierte Generation')" class="pokemon-solid-font">
+                <h4>Generation 4</h4>
+            </div>
+            <div onclick="loadGen(505, 'Fünfte Generation')" class="pokemon-solid-font">
+                <h4>Generation 5</h4>
+            </div>
+            <div onclick="loadGen(661, 'Sechste Generation')" class="pokemon-solid-font">
+                <h4>Generation 6</h4>
+            </div>
+            <div onclick="loadGen(733, 'Siebte Generation')" class="pokemon-solid-font">
+                <h4>Generation 7</h4>
+            </div>
+            <div onclick="loadGen(821, 'Achte Generation')" class="pokemon-solid-font">
+                <h4>Generation 8</h4>
+            </div>
+        </navbar>
+        <h1 id="whatGeneration" class="pokemon-solid-font">Erste Generation</h1>
+
+        <div id="pokemonList">
+        </div>
+        <button id="loadButton" onclick="renderMorePokemon()" type="button" class="btn btn-primary">Mehr Pokemon laden</button>
+        <footer id="loadingScreen" class="d-none">
+            <div class="loader"></div>
+        </footer>
+    </div>
+
+    <div id="pokemonDetails" class="container border d-none">
+        <div id="pokemonDetailsDiv" class="d-flex justify-content-between w-100 info-header">
+            <div class="d-flex flex-column info-top-left">
+                <img src="img/x-mark-3-24.png" class="icon" onclick="closeDetails()">
+                <div class="d-flex flex-column">
+                    <div id="pokeNameID" class="card-text topcardinfo"></div>
+                    <div>
+                        <div id="pokeDetailTypes" class="d-flex justify-content-between">
+                        </div>
+                    </div>
+                    <div id="pronePokemon"></div>
+                </div>
+            </div>
+
+            <div class="d-flex flex-column justify-content-between info-top-right">
+                <img class="icon" src="img/pokemon-noteam.png">
+                <div id="pokemonID" class="topcardinfo card-text"></div>
+                <div id="pokeGenusID"></div>
+                <div id="nextPokemonn"></div>
+            </div>
+        </div>
+        <div class="info-container d-flex flex-column w-100">
+
+            <div id="pokemonSpritesID" class="info-img"></div>
+            <div class="d-flex justify-content-center info-topic">
+                <h3 id="pokeInfo" class=""></h3>
+                <h3 id="pokeStats"></h3>
+                <h3 id="pokeEvos"></h3>
+            </div>
+            <div id="infoID" class="info d-flex flex-column">
+                <h3>Beschreibung</h3>
+                <p id="pokeDescrptnID" class=""></p>
+                <div class="d-flex justify-content-center">
+                    <div class="infobox border d-flex justify-content-between">
+                        <div>
+                            <h4>Größe</h4>
+                            <p id="pokeHeightID"></p>
+                        </div>
+                        <div>
+                            <h4>Gewicht</h4>
+                            <p id="pokeWeightID"></p>
+                        </div>
+                        <div>
+                            <h4>Geschlechter-Verteilung</h4>
+                            <p id="pokemonGenderID"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Stärken und Schwächen</h3>
+
+                <table class="weak-and-strong">
+                    <tr>
+                        <th id="immunityheader"></th>
+                        <td id="immunity"></td>
+                    </tr>
+                    <tr>
+                        <th id="quarterheader"></th>
+                        <td id="quarter"></td>
+                    </tr>
+                    <tr>
+                        <th id="halfheader"></th>
+                        <td id="half"></td>
+                    </tr>
+                    <tr>
+                        <th id="doubleheader">Anfällig gegen</th>
+                        <td id="double">Raphael</td>
+                    </tr>
+                    <tr>
+                        <th id="quadrupleheader">Stark anfällig gegen</th>
+                        <td id="quadruple">Raphael</td>
+                    </tr>
+                </table>
+
+                <h3>Fähigkeiten</h3>
+                <div class="d-flex abilities">
+                    <table>
+                        <tr>
+                            <th id="ability1head"></th>
+                            <td>
+                                <div id="ability1"></div>
+                                <div class="abilityinfo" id="ability1info"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th id="ability2head"></th>
+                            <td>
+                                <div id="ability2"></div>
+                                <div class="abilityinfo" id="ability2info"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th id="abilityhiddenhead"></th>
+                            <td>
+                                <div id="abilityhidden"></div>
+                                <div class="abilityinfo" id="abilityhiddeninfo"></div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="base-stats d-none" id="base-statsID">
+                <h3>Basiswerte</h3>
+                <table>
+                    <tr>
+                        <td>
+                            <h4>HP</h4>
+                        </td>
+                        <td class="progress-table">
+                            <div class="progress" id="pokeHPid"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h4>ATT</h4>
+                        </td>
+                        <td class="progress-table">
+                            <div class="progress" id="pokeATTid"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h4>DEF</h4>
+                        </td>
+                        <td class="progress-table">
+                            <div class="progress" id="pokeDEFid"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h4>SPEZ-ATT</h4>
+                        </td>
+                        <td class="progress-table">
+                            <div class="progress" id="pokeSPECATTid"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h4>SPEZ-DEF</h4>
+                        </td>
+                        <td class="progress-table">
+                            <div class="progress" id="pokeSPECDEFid"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h4>INIT</h4>
+                        </td>
+                        <td class="progress-table">
+                            <div class="progress" id="pokeINITid"></div>
+                        </td>
+                    </tr>
+                </table>
+                </li>
+
+            </div>
+
+            <div id="evolutionID" class="evolution">
+                <div class="d-flex flex-column align-items-center">
+                    <div class="evo-path d-flex align-items-center">
+                        <div id="pokemonEvolution1" class="d-flex flex-column align-items-center justify-content-center"></div>
+                        <div id="pokemonEvolution2" class="d-flex flex-column align-items-center justify-content-center"></div>
+                        <div id="pokemonEvolution3" class="d-flex flex-column align-items-center justify-content-center"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,126 @@
+@media(max-width: 680px) {
+   header {
+       flex-direction: column;
+       align-items: center;
+       padding-bottom: 1rem;
+   }
+   h1 {
+       padding-left: 0 !important;
+   }
+   .info {
+       padding: 0 2rem;
+   }
+   .base-stats {
+       padding: 0 2rem;
+   }
+   .evolution {
+       padding: 0 2rem;
+   }
+   .card-small-img-top {
+       width: 9rem;
+   }
+   .evo-path h4 {
+       font-size: 0.9rem;
+   }
+   .evo-path h6 {
+       font-size: 0.7rem;
+   }
+   .justForMediaChild div {
+       font-size: 0.7rem;
+       text-align: center;
+       align-items: center;
+   }
+}
+
+@media(max-width:600px) {
+   .card-small-img-top {
+       width: 7rem;
+   }
+   .justForMedia {
+       min-height: 155px;
+   }
+}
+
+@media(max-width: 540px) {
+   .info {
+       padding: 0 1rem;
+   }
+   .info p {
+       font-size: .9rem;
+   }
+   .base-stats {
+       padding: 0 1rem;
+   }
+   .info-img {
+       margin-top: -80px;
+       padding: .5rem;
+   }
+   .card-img-top {
+       width: 8rem;
+       padding-top: 0;
+   }
+   .evoarrow {
+       height: 24px;
+   }
+   .infobox {
+       font-size: .9rem;
+   }
+   .infobox h4 {
+       font-size: 1rem;
+   }
+   .abilities {
+       font-size: .9rem;
+   }
+   .abilityinfo {
+       font-size: .8rem;
+   }
+   .info-header {
+       padding-bottom: 2rem;
+   }
+   .info-container {
+       margin-top: -1rem;
+       border-radius: 1rem;
+       box-shadow: 2.0px 4.0px 4.0px hsl(0deg 0% 0% / 0.44);
+   }
+   .topcardinfo {
+       margin-top: 2.5rem;
+       font-size: 1.2rem;
+   }
+   .pokemon-type {
+       font-size: .9rem;
+   }
+   .evolution {
+       padding: 0 1rem;
+   }
+}
+
+@media(max-width:440px) {
+   .card-small-img-top {
+       width: 4.5rem;
+   }
+   .justForMedia {
+       min-height: 120px;
+   }
+}
+
+@media(max-width: 400px) {
+   .info-img {
+       margin-top: -70px;
+       padding: .1rem;
+   }
+   .smaller {
+       font-size: 0.7rem !important;
+   }
+   .pokemon-type {
+       width: 3.1rem !important;
+   }
+}
+
+@media(max-width: 340px) {
+   .search-input {
+       width: 160px;
+   }
+   .info-top-right {
+       text-align: end;
+   }
+}
